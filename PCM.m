@@ -1,0 +1,1 @@
+lena=imread('lena.pmg');
