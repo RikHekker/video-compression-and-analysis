@@ -16,9 +16,7 @@ pd=fitdist(vector,'normal');
 %even uniform quantizer
 for i=1:numel(original) %loop over all the elements in the lena matrix
     qindex=idivide(original(i),int8(stepsize)); %rounded to the nearest interger
-    if qindex>K
-        qindex=K;
-    end
+    
     new(i)=(qindex+0.5)*stepsize;
 end
 new=reshape(new,[512,512])
