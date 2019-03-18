@@ -1,13 +1,16 @@
-clear all; close all;
+
 %hyper parameters
-K=11;
+%K=11;
 stepsize=255/K;
 
 %load the test picture
 lena=double(imread('lena.pgm')); 
 peppers=double(imread('peppers.pgm')); 
-original=lena;
-
+if pic=="lena"
+    original=lena;
+else
+    original=peppers;
+end
 vector=original(:);
 sigma_x=var(vector);
 sigma_q=0;
@@ -19,7 +22,7 @@ for i=1:numel(original) %loop over all the elements in the lena matrix
     
     new(i)=(qindex+0.5)*stepsize;
 end
-new=reshape(new,[512,512])
+new=reshape(new,[512,512]);
 
 %SNR
 for x=0:255
@@ -28,8 +31,4 @@ for x=0:255
 end
 SNR=10*log10(sigma_x^2/sigma_q^2);
 
-%show the new picture
-new=mat2gray(new);
-figure
-imshow(new);
 
