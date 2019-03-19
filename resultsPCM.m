@@ -1,5 +1,6 @@
 clear all; close all;
-pic="peppers";
+pic="lena";
+noise="off";
 Klist=[2, 4, 8, 16, 32, 64, 128, 256];
 SNRplot=0;
 total=[];
