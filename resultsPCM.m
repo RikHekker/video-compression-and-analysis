@@ -1,6 +1,7 @@
+
 clear all; close all;
 pic="lena";
-noise="off";
+noise="on";
 Klist=[2, 4, 8, 16, 32, 64, 128, 256];
 SNRplot=0;
 total=[];
