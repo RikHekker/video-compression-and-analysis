@@ -11,14 +11,28 @@ for i=1:numel(B) %loop over all the elements in the lena matrix
     new1(i)=qindex(i)*stepsize; %get new values
 end
 new=reshape(new1,[512,512]);
-new=new+h; %brightness
-new=new*c; %more contrast
+if change == "bright"
+    changed=new+h; %brightness
+elseif change == "contrast"
+    changed=new*c; %more contrast
+elseif change == "rotate"
+    for j=1:8:512
+        for k=1:8
+            changed(j+k-1,:)=new(j+8-k,:);
+        end
+%         for k=1:8:512
+%             block=new(j:j+7,k:k+7);
+%             rotateblock=block.';
+%             changed(k:k+7,j:j+7)=rotateblock;
+%         end
+    end
+end
 
 
 %IDCT
-B2 = blockproc(new,[8 8],@(block_struct) block_struct.data);
+B2 = blockproc(changed,[8 8],@(block_struct) block_struct.data);
 invdct = @(block_struct) T' * block_struct.data * T;
-new = blockproc(B2,[8 8],invdct);
+changed = blockproc(B2,[8 8],invdct);
 
 %SNR
 SNR=snr(original,new-original);

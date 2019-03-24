@@ -2,8 +2,9 @@ clear all; close all;
 lena=imread('lena.pgm');
 original=im2double(lena);
 
-h=0; %brightness
-c=0; %contrast
+change="rotate";
+h=0.1; %brightness
+c=0.1; %contrast
 
 SNRplot=[];
 Klist=[];
@@ -12,7 +13,7 @@ for n=1:1:8
     run("DCT") 
     SNRplot=[SNRplot SNR];
     Klist=[Klist 2^n];
-    total=[total, new];
+    total=[total, changed];
 end
 
 figure
