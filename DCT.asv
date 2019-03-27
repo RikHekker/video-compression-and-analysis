@@ -13,7 +13,7 @@ for j=1:8:512 % for all block hights
         minimum=min(block(:));
         stepsize=(maximum+abs(minimum))/K;
         for i=1:numel(block) %loop over all the elements in the block
-            qindex(i)=round(block(i)/stepsize); %quantize
+            qindex(i)=round(B(i)/stepsize); %quantize
             quantized(i)=qindex(i)*stepsize; %get new values
         end
         quantized=double(reshape(quantized,[8,8]));%shape it back into the original block form
