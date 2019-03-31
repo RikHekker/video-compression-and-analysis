@@ -8,6 +8,9 @@ K=2^n;
 for j=1:8:512 % for all block hights
     for k=1:8:512 %for all block withs
         block=B(j:j+7,k:k+7); %get a block
+        if change == "bright"
+            block(1)=block(1)+h; %brightness
+        end
         %quantizer
         maximum=max(block(:));
         minimum=min(block(:));
@@ -22,9 +25,7 @@ for j=1:8:512 % for all block hights
 end
 
 % changes from chapter 3
-if change == "bright"
-    changed=new+h; %brightness
-elseif change == "contrast"
+if change == "contrast"
     changed=new*c; %more contrast
 elseif change == "rotate"
     for j=1:8:512
