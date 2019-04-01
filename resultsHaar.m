@@ -21,5 +21,5 @@ ylabel("# quantizer levels")
 
 %show the all the pictures in sussesion in one plot
 figure
-% total=mat2gray(total);
+total=mat2gray(total);
 imshow(total);
