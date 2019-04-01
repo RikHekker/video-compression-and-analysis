@@ -1,5 +1,5 @@
 clear all; close all;
-lena=double(imread('lena.pgm'));
+lena=double(imread('cameraman.pgm'));
 
 %run de DCT script for differnt bit rates (n) make an snr plot an collect
 %al the pictures
@@ -18,6 +18,14 @@ figure
 plot(SNRplot,Klist)
 xlabel("SNR [dB]")
 ylabel("# quantizer levels")
+
+%plot the pdfs
+figure
+histogram(pdfhigh)
+title("haartransfor high frequency pdf")
+figure
+histogram(pdflow)
+title("haartransfor low frequency pdf")
 
 %show the all the pictures in sussesion in one plot
 figure

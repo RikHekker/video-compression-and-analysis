@@ -1,6 +1,6 @@
 clear all; close all;
 %load lena as doubles
-lena=imread('butterfly.pgm');
+lena=imread('cameraman.pgm');
 original=im2double(lena);
 
 change="no"; %chose from bright, contrast or rotate
@@ -28,10 +28,10 @@ ylabel("# quantizer levels")
 %plot the pdfs
 figure
 histogram(pdfhigh)
-title("DCT high frequency pdf")
+title("haartransfor high frequency pdf")
 figure
 histogram(pdflow)
-title("DCT low frequency pdf")
+title("haartransfor low frequency pdf")
 
 %show the all the pictures in sussesion in one plot
 figure

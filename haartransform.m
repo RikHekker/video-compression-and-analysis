@@ -17,12 +17,15 @@ for k=1:N-1
 end
 
 %use the matrix and quantize
+pdfhigh=[];
+pdflow=[];
 K=2^n;
-
-for j=1:N:512 % for all block hights
-    for k=1:N:512 %for all block withs
+for j=1:N:size(lena) % for all block hights
+    for k=1:N:size(lena) %for all block withs
         block=lena(j:j+7,k:k+7); %get a block
         block=h*block; %haar transform the block
+        pdfhigh=[pdfhigh block(7,8)];
+        pdflow=[pdflow block(3,2)];
         maximum=max(block(:));
         minimum=min(block(:));
         stepsize=(maximum+abs(minimum))/K;

@@ -4,13 +4,17 @@ T=dctmtx(8);
 dct=@(block_struct) T * block_struct.data * T';
 B=blockproc(original,[8 8],dct);
 
+pdfhigh=[];
+pdflow=[];
 K=2^n;
-for j=1:8:512 % for all block hights
-    for k=1:8:512 %for all block withs
+for j=1:8:size(lena) % for all block hights
+    for k=1:8:size(lena) %for all block withs
         block=B(j:j+7,k:k+7); %get a block
         if change == "bright"
             block(1)=block(1)+h; %brightness
         end
+        pdfhigh=[pdfhigh block(7,8)];
+        pdflow=[pdflow block(3,2)];
         %quantizer
         maximum=max(block(:));
         minimum=min(block(:));
