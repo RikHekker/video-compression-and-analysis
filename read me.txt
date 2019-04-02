@@ -1,0 +1,1 @@
+To see the results that where provided in the paper, only run the "result" script of the appropriate transform. This script will run the other multiple time (for example to get an SNR curve over mutliple bit rates) 

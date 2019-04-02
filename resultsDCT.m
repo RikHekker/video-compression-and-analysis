@@ -1,6 +1,6 @@
 clear all; close all;
 %load lena as doubles
-lena=imread('butterfly.pgm');
+lena=imread('cameraman.pgm');
 original=im2double(lena);
 
 change="no"; %chose from bright, contrast or rotate
