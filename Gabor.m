@@ -22,4 +22,9 @@ figure
 imagesc(real(g))
 colorbar
 figure
-surf(X,Y,abs(g),'EdgeColor','black')
+imagesc(imag(g))
+colorbar
+figure
+surf(X,Y,real(g),'EdgeColor','black')
+figure
+surf(X,Y,imag(g),'EdgeColor','black')
