@@ -29,3 +29,41 @@ figure
 imshow(abs(im1), [])
 figure
 imshow(abs(im2), [])
+
+
+%begin pca
+for i=1:1001
+    point=randi([1,512-7],1,2);
+    patch(:,:,i)=double(lena(point(1):point(1)+7,point(2):point(2)+7));
+    matrix(i,:)=reshape(patch(:,:,i),1,[]);
+end
+
+%plot the patches
+for i=1:10
+    figure
+    imshow(patch(:,:,i))
+end
+
+matrix=cov(matrix);
+[vector,value]=eig(matrix);
+[d,ind] = sort(diag(value), 'descend');
+value_sort = value(ind,ind);
+vector_sort = vector(:,ind);
+
+view=zeros(64,64);
+n=1;
+j=1;
+for i=1:64
+    components(:,:,i)=reshape(vector_sort(:,i),8,8);
+    view(j:j+7,n:n+7)=components(:,:,i) ; 
+    if n==57
+        j=j+7;
+        n=1;
+    else
+        n=n+7;
+    end
+
+end
+
+
+imshow(view)
