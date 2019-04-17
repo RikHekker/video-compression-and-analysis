@@ -8,13 +8,13 @@ fpeppers = fft2(double(peppers));
 
 %plot the magnitude and phase of both pictures
 figure
-imshow(abs(log(flena)),[])
+imshow(log(1+abs(flena)),[])
 figure
-imshow(angle(log(flena)),[])
+imshow(angle(flena),[])
 figure
-imshow(abs(log(fpeppers)),[])
+imshow(log(1+abs(fpeppers)),[])
 figure
-imshow(angle(log(fpeppers)),[])
+imshow(angle(fpeppers),[])
 
 %make new images whit the magintude of one and pase of the other
 f1 = abs(flena).*exp(1i*angle(fpeppers));
@@ -38,11 +38,20 @@ for i=1:1001
     matrix(i,:)=reshape(patch(:,:,i),1,[]);
 end
 
+%dc center
+dc=mean2(matrix);
+matrix=matrix-dc;
+%normalize
+std=std2(matrix);
+matrix=matrix./std;
+
 %plot the patches
 for i=1:10
     figure
-    imshow(patch(:,:,i))
+    patch2=mat2gray(patch(:,:,i)-dc./std);
+    imshow(patch2)
 end
+
 
 matrix=cov(matrix);
 [vector,value]=eig(matrix);

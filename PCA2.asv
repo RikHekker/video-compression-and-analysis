@@ -32,9 +32,11 @@ imshow(abs(im2), [])
 
 
 %begin pca
+dc=mean2(lena);
 for i=1:1001
     point=randi([1,512-7],1,2);
-    patch(:,:,i)=double(lena(point(1):point(1)+7,point(2):point(2)+7));
+    patch(:,:,i)=double(lena(point(1):point(1)+7,point(2):point(2)+7))-dc;
+    patch=(patch
     matrix(i,:)=reshape(patch(:,:,i),1,[]);
 end
 
@@ -51,9 +53,19 @@ value_sort = value(ind,ind);
 vector_sort = vector(:,ind);
 
 view=zeros(64,64);
+n=1;
+j=1;
 for i=1:64
     components(:,:,i)=reshape(vector_sort(:,i),8,8);
-    for j
+    view(j:j+7,n:n+7)=components(:,:,i) ; 
+    if n==57
+        j=j+7;
+        n=1;
+    else
+        n=n+7;
+    end
+
 end
+
 
 imshow(view)
