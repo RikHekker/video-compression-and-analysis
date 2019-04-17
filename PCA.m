@@ -17,7 +17,7 @@ amplitudep=abs(fourierp);
 figure
 imshow(fftshift(phasep),[])
 figure
-imshow(fftshift(amplitudep),[])
+imshow(amplitudep,[])
 
 %new pictures
 pepna=ifft2(amplitudep.*exp(1i*phasel));

@@ -1,0 +1,29 @@
+clear all; close all;
+imageA = imread('lena','pgm');
+imageB = imread('peppers','pgm');
+
+%fourier transform the images
+fftA = fft2(double(imageA));
+fftB = fft2(double(imageB));
+
+%plot the magnitude and phase of both pictures
+figure
+imshow(abs(fftshift(fftA)),[])
+figure
+imshow(angle(fftshift(fftA)),[])
+figure
+imshow(abs(fftshift(fftB)),[])
+figure
+imshow(angle(fftshift(fftB)),[])
+
+%make new images whit the magintude of one and pase of the other
+fftC = abs(fftA).*exp(1i*angle(fftB));
+fftD = abs(fftB).*exp(1i*angle(fftA));
+
+imageC = ifft2(fftC);
+imageD = ifft2(fftD);
+
+figure
+imshow(abs(imageC), [])
+figure
+imshow(abs(imageD), [])
