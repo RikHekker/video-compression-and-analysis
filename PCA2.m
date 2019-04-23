@@ -46,33 +46,42 @@ std=std2(matrix);
 matrix=matrix./std;
 
 %plot the patches
+figure
 for i=1:10
-    figure
+    subplot(2,5,i)
     patch2=mat2gray(patch(:,:,i)-dc./std);
     imshow(patch2)
 end
 
-
+%find the components
 matrix=cov(matrix);
 [vector,value]=eig(matrix);
 [d,ind] = sort(diag(value), 'descend');
 value_sort = value(ind,ind);
 vector_sort = vector(:,ind);
 
-view=zeros(64,64);
-n=1;
-j=1;
+%plot the componenets
+figure
 for i=1:64
-    components(:,:,i)=reshape(vector_sort(:,i),8,8);
-    view(j:j+7,n:n+7)=components(:,:,i) ; 
-    if n==57
-        j=j+7;
-        n=1;
-    else
-        n=n+7;
-    end
-
+    components(:,:,i)=(reshape(vector_sort(:,i),8,8));
+    subplot(8,8,i)
+    imshow(mat2gray(components(:,:,i)))
 end
 
-
-imshow(view)
+%pca withening
+lmean=mean2(lena);
+new=[];
+for i=1:8:512
+    for j=1:8:512
+    block=double(reshape(lena(i:i+7,j:j+7),[],1));
+    sum=0;
+        for k=1:64
+            sum=sum+block.'*vector_sort(:,k);
+        end
+    new=[new lmean+sum];
+    end
+end
+        
+figure
+new=mat2gray(reshape(new,64,64).');
+imshow(new)
