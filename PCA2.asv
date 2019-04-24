@@ -74,12 +74,15 @@ new=[];
 for i=1:8:512
     for j=1:8:512
     block=double(reshape(lena(i:i+7,j:j+7),[],1));
-    whitend=diag(1./sqrt(diag(value)+lmean))*vector'*block;
-    whitend=reshape(whitend,8,8);
-    new(i:i+7,j:j+7)=whitend;
+    whitend=diag(1./sqrt(diag(values
+%     sum=0;
+%         for k=1:64
+%             sum=sum+block.'*vector_sort(:,k);
+%         end
+%     new=[new lmean+sum];
     end
 end
         
 figure
-total=mat2gray(new);
-imshow(total)
+new=mat2gray(reshape(new,64,64).');
+imshow(new)

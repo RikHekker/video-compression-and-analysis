@@ -53,7 +53,7 @@ for j=1:3
         imagesc(real(g))
         colorbar
         h(l,:,:)=2*pi*gamma*eta*exp(-2*pi^2*((x2-u0).^2*gamma^2+(y2-v0).^2*eta^2));
-        %h(l,:,:)=exp(-(pi^2/f0^2)*(gamma^2*(x2-f0)^2+eta^2*y2^2));
+        h(l,:,:)=exp(-(pi^2/f0^2)*(gamma^2*(x2-f0)^2+eta^2*y2^2));
     end
 end
 
