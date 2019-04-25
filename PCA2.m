@@ -69,12 +69,11 @@ for i=1:64
 end
 
 %pca withening
-lmean=mean2(lena);
-new=[];
+epsilon=1*10-5;
 for i=1:8:512
     for j=1:8:512
     block=double(reshape(lena(i:i+7,j:j+7),[],1));
-    whitend=diag(1./sqrt(diag(value)+lmean))*vector'*block;
+    whitend=diag(1./sqrt(diag(value)+epsilon))*vector'*block;
     whitend=reshape(whitend,8,8);
     new(i:i+7,j:j+7)=whitend;
     end

@@ -9,11 +9,11 @@ for data=1:size(test_digits,3)*0.5
     end
 end
 
-%train the HMMs
+%train the HMMs 
 for label=1:10
     for state=1:size(test_digits,2)
         avg(label,state)=sum(sorted_data(label,:,state))/size(test_digits,2);
-        variance(label,state)=std(sorted_data(label,:,state));
+        s_deviation(label,state)=std(sorted_data(label,:,state));
     end
 end
 
@@ -24,10 +24,10 @@ for data=1:size(test_digits,3)*0.5%size(test_digits,3):size(test_digits,3)
     test_data(data,:)=sum(test_digits(:,:,data+5000),2);
     for label=1:10
         for state=1:size(test_digits,2)
-            if variance(label,state)==0
+            if s_deviation(label,state)==0
                 prob(data,label,state)=1;
             else
-                prob(data,label,state)=1/(2*pi*variance(label,state))*exp(-(test_data(data,state)-mean(label,state)).^2/(2*variance(label,state)^2));
+                prob(data,label,state)=(1/(sqrt(2*pi)*s_deviation(label,state)))*exp(-(test_data(data,state)-mean(label,state)).^2/(2*s_deviation(label,state)^2));
                 %prob(data,label,state)=normpdf(test_data(data,state),avg(label,state),variance(label,state));
             end
         end

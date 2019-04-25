@@ -30,44 +30,46 @@ figure
 surf(X,Y,imag(g),'EdgeColor','black')
 
 %filter bank
+[X,Y]=meshgrid([-5:0.01:5]);
 k=4; %amount of orientations
-f0=0;
-gtotal=zeros(101,101);
-htotal=zeros(101,101);
+f=[1,1.5,2.25];
 eta=(2*k/pi^2)*sqrt(-log(1/sqrt(2)));
-gamma=eta;
+gamma=2*eta;
 l=0;
 figure
 for j=1:3
     theta=0;
-    f0=0.5/eta+(j-1)/eta;
+    f0=f(j);
     for i=1:k
-        theta=i*0.25*pi;
+        theta=(i-1)*0.25*pi;
         v0=f0*sin(theta);
         u0=f0*cos(theta);
         x2=Y*cos(theta)+X*sin(theta);
         y2=-Y*sin(theta)+X*cos(theta);
         l=l+1;
+        %spatial domain
         g=(f0/(pi*gamma*eta))*exp(-(f0^2*x2.^2/gamma^2)-(f0^2*y2.^2/eta^2)).*exp(1i*2*pi*f0*x2);
         subplot(3,4,l)
         imagesc(real(g))
         colorbar
-        h(l,:,:)=2*pi*gamma*eta*exp(-2*pi^2*((x2-u0).^2*gamma^2+(y2-v0).^2*eta^2));
-        %h(l,:,:)=exp(-(pi^2/f0^2)*(gamma^2*(x2-f0)^2+eta^2*y2^2));
+        %spectral domain
+        h=exp(-(pi^2/f0^2)*(gamma^2*(x2-f0).^2+eta^2*y2.^2));
+        halfpower=max(max(h))/sqrt(2);
+        for m=1:numel(h)
+            if h(m)>=halfpower
+                h(m)=1;
+            else
+                h(m)=0;
+            end
+        end
+        h_power(l,:,:)=h;
     end
 end
 
 figure
 for l=1:12
     hold on
-    contour(reshape(h(l,:,:),101,101))
+    contour(reshape(h_power(l,:,:),1001,1001),[1,1])
 end
 
-% 
-% figure
-% imagesc(real(gtotal))
-% colorbar
-% figure
-% imagesc(imag(gtotal))
-% colorbar
 
