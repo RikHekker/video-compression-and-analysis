@@ -31,7 +31,8 @@ figure
 imshow(abs(im2), [])
 
 
-%begin pca
+%% begin pca
+%get patches
 for i=1:1001
     point=randi([1,512-7],1,2);
     patch(:,:,i)=double(lena(point(1):point(1)+7,point(2):point(2)+7));
@@ -68,7 +69,7 @@ for i=1:64
     imshow(mat2gray(components(:,:,i)))
 end
 
-%pca withening
+%% pca withening
 epsilon=1*10-5;
 for i=1:8:512
     for j=1:8:512
